@@ -1,59 +1,100 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🌸 Panduan Instalasi Dashboard UMKM Bouquet
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Selamat datang di **Dashboard Analitik UMKM Bouquet Bunga**, aplikasi dashboard modern bertema **Pink & White** dengan standar visual **Shadcn UI** untuk membantu pemilik UMKM memantau performa penjualan secara realtime.
 
-## About Laravel
+Dokumen ini menjelaskan langkah-langkah instalasi aplikasi di perangkat lokal Anda menggunakan **XAMPP** dan **Windows PowerShell/Command Prompt**.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📋 Prasyarat Sistem
+Pastikan perangkat Anda sudah terpasang:
+1. **XAMPP** (dengan versi PHP minimal 8.2)
+2. **Node.js** (versi LTS terbaru)
+3. **Composer** (jika belum ada secara global, panduan di bawah menggunakan file `composer.phar` lokal yang sangat praktis)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🛠️ Langkah Instalasi Lengkap
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Langkah 1: Persiapan Folder Project
+1. Buka aplikasi terminal pilihan Anda (misalnya **PowerShell**).
+2. Arahkan terminal ke dalam direktori project ini:
+   ```powershell
+   cd "C:\Users\solit\Documents\SEMESTER 6\Projek BK\dashbordBK"
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Langkah 2: Mengaktifkan Ekstensi PHP di XAMPP
+Buka file konfigurasi `php.ini` Anda (biasanya di `C:\xampp\php\php.ini`) dan pastikan ekstensi berikut tidak dikomentari (hilangkan tanda titik koma `;` di depannya):
+* `extension=zip` (Wajib untuk mengunduh package composer)
+* `extension=gd` (Wajib untuk manipulasi gambar produk)
+* `extension=pdo_mysql` (Wajib untuk menghubungkan ke database MySQL)
 
-## Laravel Sponsors
+*Catatan: Anda juga bisa mengedit file ini lewat panel XAMPP Control Panel dengan mengklik tombol **Config** di baris Apache, lalu pilih **PHP (php.ini)**.*
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Langkah 3: Menginstal Dependensi PHP (Composer)
+Jika perintah `composer` global belum terpasang di perangkat Anda, gunakan file `composer.phar` lokal yang telah kami unduh ke folder project ini. Jalankan perintah berikut menggunakan PHP dari XAMPP:
+```powershell
+C:\xampp\php\php.exe composer.phar install
+```
 
-### Premium Partners
+### Langkah 4: Setup File Konfigurasi `.env`
+1. Duplikat file `.env.example` menjadi file baru bernama `.env`:
+   ```powershell
+   Copy-Item .env.example .env
+   ```
+2. Buka file `.env` di VS Code / editor teks lainnya dan sesuaikan konfigurasi database Anda:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=dashbord_bk    # Ganti dengan nama database Anda di phpMyAdmin
+   DB_USERNAME=root           # Default XAMPP
+   DB_PASSWORD=               # Kosongkan untuk default XAMPP
+   ```
+3. Generate kunci pengaman enkripsi Laravel:
+   ```powershell
+   C:\xampp\php\php.exe artisan key:generate
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Langkah 5: Migrasi Database & Seeding Data
+1. Aktifkan service **Apache** dan **MySQL** di panel **XAMPP Control Panel**.
+2. Masuk ke `http://localhost/phpmyadmin/` lewat browser Anda dan buat database baru bernama `dashbord_bk` (atau sesuai nama yang Anda atur di `.env`).
+3. Jalankan migrasi tabel beserta pengisian data uji otomatis (seeder):
+   ```powershell
+   C:\xampp\php\php.exe artisan migrate --seed
+   ```
 
-## Contributing
+### Langkah 6: Menginstal & Menjalankan Aset Frontend (Vite)
+1. Instal paket dependensi Javascript/CSS:
+   ```powershell
+   npm install
+   ```
+2. Jalankan server kompilator aset frontend Vite secara lokal:
+   ```powershell
+   npm run dev
+   ```
+   *Biarkan terminal ini tetap terbuka dan berjalan di background agar gaya visual dashboard (CSS/JS) dapat termuat secara dinamis.*
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Langkah 7: Menjalankan Server Laravel
+Buka tab terminal baru (atau biarkan berjalan di background jika terminal mendukung) dan jalankan development server Laravel dengan perintah:
+```powershell
+C:\xampp\php\php.exe artisan serve
+```
+Aplikasi Anda siap diakses di web browser pada tautan: **`http://127.0.0.1:8000`**
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🔑 Informasi Akun Uji Coba (Login Default)
+Gunakan kredensial berikut untuk masuk sebagai administrator di halaman login:
 
-## Security Vulnerabilities
+* **Email**: `admin@bouquet.com` (atau email administrator yang ada di database seeder)
+* **Password**: `password` (atau password default yang di-seed)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 📈 Fitur Unggulan Dashboard "Pink & White"
+* **Ringkasan KPI Bisnis**: Tampilan total pendapatan, jumlah transaksi, total produk terjual, dan jumlah pelanggan aktif secara realtime.
+* **Grafik Interaktif Bulanan**: Pilih bulan lewat dropdown select, dan grafik batang gradasi pink premium akan menampilkan tren harian untuk bulan terpilih.
+* **Produk Terlaris**: Daftar visual produk terpopuler lengkap dengan bar persentase representasi penjualan.
+* **Tabel Transaksi Modern**: Dilengkapi dengan badge lunas (hijau), proses (kuning), dan batal (merah) bergaya minimalis ala Shadcn UI.
+* **Notifikasi Stok Kritis**: Chip pemberitahuan pintar saat stok bahan atau produk di inventori Anda mendekati atau telah habis.

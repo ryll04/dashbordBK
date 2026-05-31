@@ -43,6 +43,11 @@ class Transaksi extends Model
         return $this->hasMany(DetailTransaksi::class, 'id_transaksi', 'id_transaksi');
     }
 
+    public function details()
+    {
+        return $this->hasMany(DetailTransaksi::class, 'id_transaksi', 'id_transaksi');
+    }
+
     public function pembayaran()
     {
         return $this->hasOne(Pembayaran::class, 'id_transaksi', 'id_transaksi');
