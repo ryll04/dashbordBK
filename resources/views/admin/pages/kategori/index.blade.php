@@ -1,0 +1,49 @@
+@extends('admin.layouts.app')
+
+@section('title', 'Kategori Bouquet')
+@section('header', 'Kategori Bouquet')
+
+@section('content')
+<div class="flex justify-between items-center" style="margin-bottom: var(--space-xl);">
+    <h2 class="text-heading-md" style="margin: 0;">Daftar Kategori</h2>
+    <a href="{{ route('admin.kategori.create') }}" class="btn btn-primary">+ Tambah Kategori</a>
+</div>
+
+<div class="card pin-card" style="padding: 0;">
+    <table style="width: 100%; border-collapse: collapse; text-align: left;">
+        <thead>
+            <tr style="border-bottom: 1px solid var(--color-hairline); background-color: var(--color-surface-soft);">
+                <th style="padding: var(--space-md) var(--space-lg); font-weight: 600;">Nama</th>
+                <th style="padding: var(--space-md) var(--space-lg); font-weight: 600;">Deskripsi</th>
+                <th style="padding: var(--space-md) var(--space-lg); font-weight: 600;">Status</th>
+                <th style="padding: var(--space-md) var(--space-lg); font-weight: 600; text-align: right;">Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($kategoris as $k)
+            <tr style="border-bottom: 1px solid var(--color-hairline);">
+                <td style="padding: var(--space-md) var(--space-lg);">{{ $k->nama_kategori }}</td>
+                <td style="padding: var(--space-md) var(--space-lg); color: var(--color-mute);">{{ Str::limit($k->deskripsi_kategori, 50) }}</td>
+                <td style="padding: var(--space-md) var(--space-lg);">
+                    <span style="display: inline-block; padding: 2px 8px; border-radius: var(--radius-full); font-size: 12px; font-weight: 600; background-color: {{ $k->status_kategori == 'aktif' ? 'var(--color-success-pale)' : 'var(--color-secondary-bg)' }}; color: {{ $k->status_kategori == 'aktif' ? 'var(--color-success-deep)' : 'var(--color-ink)' }};">
+                        {{ ucfirst($k->status_kategori) }}
+                    </span>
+                </td>
+                <td style="padding: var(--space-md) var(--space-lg); text-align: right;">
+                    <a href="{{ route('admin.kategori.edit', $k->id_kategori) }}" class="btn btn-secondary" style="height: 32px; padding: 0 10px;">Edit</a>
+                    <form action="{{ route('admin.kategori.destroy', $k->id_kategori) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Yakin ingin menghapus kategori ini?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-secondary" style="height: 32px; padding: 0 10px; color: var(--color-error);">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="4" style="padding: var(--space-xl); text-align: center; color: var(--color-mute);">Tidak ada data kategori.</td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
+@endsection
