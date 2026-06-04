@@ -22,23 +22,19 @@ class DashboardController extends Controller
         $chartMonth = $request->get('chart_month', Carbon::now()->format('Y-m'));
 
         // 1. Core metrics using correct 'berhasil' transaction status
-        $now = Carbon::now();
-        match ($period) {
-            'today' => $startDate = $now->copy()->startOfDay(),
-            'week'  => $startDate = $now->copy()->startOfWeek(),
-            'month' => $startDate = $now->copy()->startOfMonth(),
-            'year'  => $startDate = $now->copy()->startOfYear(),
-            default => $startDate = $now->copy()->startOfMonth(),
-        };
+        $selectedDate = Carbon::createFromFormat('Y-m', $chartMonth);
 
-        $transaksiBerhasil = Transaksi::where('status_transaksi', 'berhasil')
-            ->where('tanggal_transaksi', '>=', $startDate);
+        $startDate = $selectedDate->copy()->startOfMonth();
+$endDate = $selectedDate->copy()->endOfMonth();
+
+$transaksiBerhasil = Transaksi::where('status_transaksi', 'berhasil')
+    ->whereBetween('tanggal_transaksi', [$startDate, $endDate]);
 
         $metrics = [
             'pendapatan'      => (clone $transaksiBerhasil)->sum('total_pembayaran'),
             'totalTransaksi'  => (clone $transaksiBerhasil)->count(),
-            'produkTerjual'   => DetailTransaksi::whereHas('transaksi', fn($q) => $q->where('status_transaksi', 'berhasil')->where('tanggal_transaksi', '>=', $startDate))->sum('jumlah_terjual'),
-            'pelangganAktif'  => Transaksi::where('status_transaksi', 'berhasil')->where('tanggal_transaksi', '>=', $startDate)->distinct('id_pelanggan')->count('id_pelanggan'),
+            'produkTerjual' => DetailTransaksi::whereHas('transaksi', fn($q) => $q->where('status_transaksi', 'berhasil')->whereBetween('tanggal_transaksi', [$startDate, $endDate]))->sum('jumlah_terjual'),
+            'pelangganAktif' => Transaksi::where('status_transaksi', 'berhasil')->whereBetween('tanggal_transaksi', [$startDate, $endDate]) ->distinct() ->count('id_pelanggan'),
         ];
 
         // 2. Generate available months list (Indonesian locale-agnostic)
