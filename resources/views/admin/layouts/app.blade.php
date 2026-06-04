@@ -13,33 +13,33 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div style="padding: var(--space-xl); background: linear-gradient(135deg, #D81B60, #880E4F); color: #fff;">
-                <div style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">🌸 Bouquet Admin</div>
+                <div style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;"> Bouquet Admin</div>
                 <div style="font-size: 12px; opacity: 0.8; margin-top: 4px;">Dashboard UMKM</div>
             </div>
             <nav style="padding: var(--space-lg) 0; flex: 1;">
                 <a href="{{ route('admin.dashboard') }}" style="display: flex; align-items: center; gap: 10px; padding: var(--space-md) var(--space-xl); color: var(--color-ink); text-decoration: none; font-weight: 500; font-size: 14px; border-radius: 12px; margin: 2px 8px; transition: all 0.2s ease; {{ request()->routeIs('admin.dashboard') ? 'background: rgba(216,27,96,0.08); color: #D81B60; font-weight: 600; border-left: 3px solid #D81B60;' : '' }}">
-                    <span>📊</span> Dashboard
+                    <span></span> Dashboard
                 </a>
                 <a href="{{ route('admin.kategori.index') }}" style="display: flex; align-items: center; gap: 10px; padding: var(--space-md) var(--space-xl); color: var(--color-ink); text-decoration: none; font-weight: 500; font-size: 14px; border-radius: 12px; margin: 2px 8px; transition: all 0.2s ease;">
-                    <span>🏷️</span> Kategori
+                    <span></span> Kategori
                 </a>
                 <a href="{{ route('admin.produk.index') }}" style="display: flex; align-items: center; gap: 10px; padding: var(--space-md) var(--space-xl); color: var(--color-ink); text-decoration: none; font-weight: 500; font-size: 14px; border-radius: 12px; margin: 2px 8px; transition: all 0.2s ease;">
-                    <span>💐</span> Produk
+                    <span></span> Produk
                 </a>
                 <a href="{{ route('admin.pelanggan.index') }}" style="display: flex; align-items: center; gap: 10px; padding: var(--space-md) var(--space-xl); color: var(--color-ink); text-decoration: none; font-weight: 500; font-size: 14px; border-radius: 12px; margin: 2px 8px; transition: all 0.2s ease;">
-                    <span>👥</span> Pelanggan
+                    <span></span> Pelanggan
                 </a>
                 <a href="{{ route('admin.transaksi.index') }}" style="display: flex; align-items: center; gap: 10px; padding: var(--space-md) var(--space-xl); color: var(--color-ink); text-decoration: none; font-weight: 500; font-size: 14px; border-radius: 12px; margin: 2px 8px; transition: all 0.2s ease;">
-                    <span>🧾</span> Riwayat Transaksi
+                    <span></span> Riwayat Transaksi
                 </a>
                 <a href="{{ route('admin.stok.index') }}" style="display: flex; align-items: center; gap: 10px; padding: var(--space-md) var(--space-xl); color: var(--color-ink); text-decoration: none; font-weight: 500; font-size: 14px; border-radius: 12px; margin: 2px 8px; transition: all 0.2s ease;">
-                    <span>📦</span> Manajemen Stok
+                    <span></span> Manajemen Stok
                 </a>
                 <a href="{{ route('admin.laporan.penjualan') }}" style="display: flex; align-items: center; gap: 10px; padding: var(--space-md) var(--space-xl); color: var(--color-ink); text-decoration: none; font-weight: 500; font-size: 14px; border-radius: 12px; margin: 2px 8px; transition: all 0.2s ease;">
-                    <span>📈</span> Laporan Penjualan
+                    <span></span> Laporan Penjualan
                 </a>
                 <a href="{{ route('admin.pengguna.index') }}" style="display: flex; align-items: center; gap: 10px; padding: var(--space-md) var(--space-xl); color: var(--color-ink); text-decoration: none; font-weight: 500; font-size: 14px; border-radius: 12px; margin: 2px 8px; transition: all 0.2s ease;">
-                    <span>⚙️</span> Manajemen Akun
+                    <span></span> Manajemen Akun
                 </a>
                 <!-- We will add more links in phase 2-5 -->
             </nav>

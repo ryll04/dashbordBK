@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Admin Dashboard')
-@section('header', '🌸 Dashboard Analitik UMKM Bouquet')
+@section('header', 'Dashboard Analitik UMKM Bouquet')
 
 @section('content')
 {{-- Period Filter --}}
@@ -19,10 +19,10 @@
 
 {{-- Key Metrics (4 KPI Cards) --}}
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-lg); margin-bottom: var(--space-xxl);">
-    <x-card-stat title="Total Pendapatan" value="Rp {{ number_format($metrics['pendapatan'], 0, ',', '.') }}" icon="💰" trend="{{ $metrics['pendapatan'] > 0 ? '23%' : '' }}" :trendUp="true" accentColor="#D81B60" />
-    <x-card-stat title="Transaksi Berhasil" value="{{ number_format($metrics['totalTransaksi']) }}" icon="🧾" trend="{{ $metrics['totalTransaksi'] > 0 ? '12%' : '' }}" :trendUp="true" accentColor="#15803d" />
-    <x-card-stat title="Produk Terjual" value="{{ number_format($metrics['produkTerjual']) }}" icon="💐" trend="{{ $metrics['produkTerjual'] > 0 ? '18%' : '' }}" :trendUp="true" accentColor="#7c3aed" />
-    <x-card-stat title="Pelanggan Aktif" value="{{ number_format($metrics['pelangganAktif']) }}" icon="👥" trend="{{ $metrics['pelangganAktif'] > 0 ? '8%' : '' }}" :trendUp="true" accentColor="#0891b2" />
+    <x-card-stat title="Total Pendapatan" value="Rp {{ number_format($metrics['pendapatan'], 0, ',', '.') }}" icon="" trend="{{ $metrics['pendapatan'] > 0 ? '23%' : '' }}" :trendUp="true" accentColor="#D81B60" />
+    <x-card-stat title="Transaksi Berhasil" value="{{ number_format($metrics['totalTransaksi']) }}" icon="" trend="{{ $metrics['totalTransaksi'] > 0 ? '12%' : '' }}" :trendUp="true" accentColor="#15803d" />
+    <x-card-stat title="Produk Terjual" value="{{ number_format($metrics['produkTerjual']) }}" icon="" trend="{{ $metrics['produkTerjual'] > 0 ? '18%' : '' }}" :trendUp="true" accentColor="#7c3aed" />
+    <x-card-stat title="Pelanggan Aktif" value="{{ number_format($metrics['pelangganAktif']) }}" icon="" trend="{{ $metrics['pelangganAktif'] > 0 ? '8%' : '' }}" :trendUp="true" accentColor="#0891b2" />
 </div>
 
 {{-- Charts Row --}}
@@ -32,7 +32,7 @@
         <div class="card" style="padding: var(--space-xl); height: 100%;">
             <div class="flex justify-between items-center" style="margin-bottom: var(--space-lg);">
                 <h3 class="text-heading-md" style="margin: 0; display: flex; align-items: center; gap: 8px;">
-                    📈 Grafik Penjualan Bulanan
+                 Grafik Penjualan Bulanan
                 </h3>
                 {{-- Month Selector --}}
                 <form action="{{ route('admin.dashboard') }}" method="GET" style="display: flex; gap: var(--space-sm); align-items: center;">
@@ -40,7 +40,7 @@
                     <select name="chart_month" class="form-input" onchange="this.form.submit()" style="min-width: 140px; height: 36px; font-size: 13px; padding: 6px 12px; border-color: var(--color-hairline);">
                         @foreach($availableMonths as $m)
                             <option value="{{ $m['value'] }}" {{ $chartMonth == $m['value'] ? 'selected' : '' }}>
-                                🌸 {{ $m['label'] }}
+                                {{ $m['label'] }}
                             </option>
                         @endforeach
                     </select>
@@ -56,7 +56,7 @@
     <div style="flex: 1;">
         <div class="card" style="height: 100%; display: flex; flex-direction: column; padding: var(--space-xl);">
             <h3 class="text-heading-md" style="margin-bottom: var(--space-lg); display: flex; align-items: center; gap: 8px;">
-                🏆 Produk Terlaris
+                Produk Terlaris
             </h3>
             <div style="flex: 1; overflow-y: auto;">
                 @forelse($topProducts as $index => $tp)
@@ -95,7 +95,7 @@
 <div style="margin-bottom: var(--space-xxl);">
     <div class="card" style="padding: 0; overflow: hidden;">
         <div style="padding: var(--space-xl) var(--space-xl) var(--space-lg);">
-            <h3 class="text-heading-md" style="margin: 0; display: flex; align-items: center; gap: 8px;">📋 Transaksi Terbaru</h3>
+            <h3 class="text-heading-md" style="margin: 0; display: flex; align-items: center; gap: 8px;">Transaksi Terbaru</h3>
         </div>
         <table class="dashboard-table">
             <thead>
@@ -163,16 +163,16 @@
 <div style="margin-bottom: var(--space-xxl);">
     <div class="stock-alert">
         <div class="stock-alert-title">
-            ⚠️ Peringatan Stok Kritis
+            Peringatan Stok Kritis
             <a href="{{ route('admin.stok.index') }}" class="text-caption" style="color: var(--color-primary); margin-left: auto; font-weight: 600; text-decoration: none;">Lihat Stok →</a>
         </div>
         <div style="display: flex; gap: var(--space-md); flex-wrap: wrap; margin-top: var(--space-sm);">
             @forelse($lowStockProducts as $ls)
                 <span class="stock-chip {{ $ls->stok_produk == 0 ? 'stock-chip-danger' : '' }}">
-                    💐 {{ $ls->nama_produk }} – {{ $ls->stok_produk == 0 ? 'HABIS' : $ls->stok_produk . ' unit' }}
+                     {{ $ls->nama_produk }} – {{ $ls->stok_produk == 0 ? 'HABIS' : $ls->stok_produk . ' unit' }}
                 </span>
             @empty
-                <span style="font-size: 13px; color: var(--color-mute);">✅ Semua stok aman.</span>
+                <span style="font-size: 13px; color: var(--color-mute);">Semua stok aman.</span>
             @endforelse
         </div>
     </div>
